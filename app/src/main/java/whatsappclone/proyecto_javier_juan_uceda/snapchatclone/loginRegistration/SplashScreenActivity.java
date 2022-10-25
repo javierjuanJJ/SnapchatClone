@@ -1,11 +1,12 @@
-package whatsappclone.proyecto_javier_juan_uceda.snapchatclone;
-
-import androidx.appcompat.app.AppCompatActivity;
+package whatsappclone.proyecto_javier_juan_uceda.snapchatclone.loginRegistration;
 
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.firebase.auth.FirebaseAuth;
+
+import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.MainActivity;
+import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.ParentActivity;
 
 public class SplashScreenActivity extends ParentActivity {
 

@@ -1,8 +1,11 @@
-package whatsappclone.proyecto_javier_juan_uceda.snapchatclone;
+package whatsappclone.proyecto_javier_juan_uceda.snapchatclone.loginRegistration;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.ParentActivity;
+import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.R;
 
 public class ChooseLoginRegistrationActivity extends ParentActivity implements View.OnClickListener {
 
