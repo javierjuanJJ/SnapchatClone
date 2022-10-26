@@ -21,8 +21,10 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.IOException;
+import java.util.List;
 
 import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.R;
+import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.ShowCaptureActivity;
 import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.loginRegistration.SplashScreenActivity;
 
 /**
@@ -30,7 +32,7 @@ import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.loginRegistration.
  * Use the {@link CameraFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CameraFragment extends Fragment implements SurfaceHolder.Callback {
+public class CameraFragment extends Fragment implements SurfaceHolder.Callback, Camera.PictureCallback {
 
     private Camera camera;
 
@@ -38,6 +40,9 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback {
     private SurfaceHolder mSurfaceHolder;
 
     private final int CAMERA_REQUEST_CODE = 1;
+
+    private Camera.PictureCallback jpegCallback;
+    private Button mLogout, mCapture;
 
     public static CameraFragment newInstance(){
         CameraFragment fragment = new CameraFragment();
@@ -60,7 +65,7 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback {
             mSurfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
         }
 
-        Button mLogout = view.findViewById(R.id.logout);
+        mLogout = view.findViewById(R.id.logout);
         mLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -68,7 +73,21 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback {
             }
         });
 
+        mCapture = view.findViewById(R.id.capture);
+        mCapture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                captureImage();
+            }
+        });
+
+        jpegCallback = this;
+
         return view;
+    }
+
+    private void captureImage() {
+        camera.takePicture(null, null, jpegCallback);
     }
 
     private void LogOut() {
@@ -89,6 +108,17 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback {
         camera.setDisplayOrientation(90);
         parameters.setPreviewFrameRate(30);
         parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+
+        Camera.Size bestSize = null;
+        List<Camera.Size> sizeList = camera.getParameters().getSupportedPreviewSizes();
+        bestSize = sizeList.get(0);
+        for(int i = 1; i < sizeList.size(); i++){
+            if((sizeList.get(i).width * sizeList.get(i).height) > (bestSize.width * bestSize.height)){
+                bestSize = sizeList.get(i);
+            }
+        }
+
+        parameters.setPictureSize(bestSize.width, bestSize.height);
 
         camera.setParameters(parameters);
 
@@ -125,5 +155,18 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback {
     @Override
     public void surfaceDestroyed(@NonNull SurfaceHolder surfaceHolder) {
 
+    }
+
+    /**
+     * @param bytes
+     * @param camera
+     * @deprecated
+     */
+    @Override
+    public void onPictureTaken(byte[] bytes, Camera camera) {
+        Intent intent = new Intent(getActivity(), ShowCaptureActivity.class);
+        intent.putExtra("capture", bytes);
+        startActivity(intent);
+        return;
     }
 }
