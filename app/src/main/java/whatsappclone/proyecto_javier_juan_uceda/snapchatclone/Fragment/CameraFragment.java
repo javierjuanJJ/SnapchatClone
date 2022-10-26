@@ -23,6 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.io.IOException;
 import java.util.List;
 
+import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.FindUsersActivity;
 import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.R;
 import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.ShowCaptureActivity;
 import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.loginRegistration.SplashScreenActivity;
@@ -32,7 +33,7 @@ import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.loginRegistration.
  * Use the {@link CameraFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CameraFragment extends Fragment implements SurfaceHolder.Callback, Camera.PictureCallback {
+public class CameraFragment extends Fragment implements SurfaceHolder.Callback, Camera.PictureCallback, View.OnClickListener {
 
     private Camera camera;
 
@@ -43,6 +44,7 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback, 
 
     private Camera.PictureCallback jpegCallback;
     private Button mLogout, mCapture;
+    private Button mFindUsers;
 
     public static CameraFragment newInstance(){
         CameraFragment fragment = new CameraFragment();
@@ -66,24 +68,24 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback, 
         }
 
         mLogout = view.findViewById(R.id.logout);
-        mLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                LogOut();
-            }
-        });
+        mLogout.setOnClickListener(this);
 
         mCapture = view.findViewById(R.id.capture);
-        mCapture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                captureImage();
-            }
-        });
+        mCapture.setOnClickListener(this);
+
+        mFindUsers = view.findViewById(R.id.findUsers);
+
+        mFindUsers.setOnClickListener(this);
 
         jpegCallback = this;
 
         return view;
+    }
+
+    private void FindUsers() {
+        Intent intent = new Intent(getContext(), FindUsersActivity.class);
+        startActivity(intent);
+        return;
     }
 
     private void captureImage() {
@@ -168,5 +170,14 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback, 
         intent.putExtra("capture", bytes);
         startActivity(intent);
         return;
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.logout: LogOut(); break;
+            case R.id.capture: captureImage(); break;
+            case R.id.findUsers: FindUsers(); break;
+        }
     }
 }
