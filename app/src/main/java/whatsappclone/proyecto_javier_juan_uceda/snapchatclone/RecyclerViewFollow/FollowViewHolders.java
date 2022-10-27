@@ -8,11 +8,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.R;
 
-class RCViewHolders extends RecyclerView.ViewHolder {
+class FollowViewHolders extends RecyclerView.ViewHolder {
     public TextView mEmail;
     public Button mFollow;
 
-    public RCViewHolders(View itemView){
+    public FollowViewHolders(View itemView){
         super(itemView);
         mEmail = itemView.findViewById(R.id.email);
         mFollow = itemView.findViewById(R.id.follow);

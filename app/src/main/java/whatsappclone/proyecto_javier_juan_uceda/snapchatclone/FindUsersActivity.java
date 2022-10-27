@@ -1,6 +1,5 @@
 package whatsappclone.proyecto_javier_juan_uceda.snapchatclone;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,8 +18,8 @@ import com.google.firebase.database.Query;
 
 import java.util.ArrayList;
 
-import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.RecyclerViewFollow.RCAdapater;
-import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.RecyclerViewFollow.UsersObject;
+import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.RecyclerViewFollow.FollowAdapater;
+import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.RecyclerViewFollow.FollowObject;
 
 public class FindUsersActivity extends ParentActivity {
 
@@ -33,7 +32,7 @@ public class FindUsersActivity extends ParentActivity {
     private EditText mInput;
     private Button mSearch;
 
-    private ArrayList<UsersObject> results = new ArrayList<>();
+    private ArrayList<FollowObject> results = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +51,7 @@ public class FindUsersActivity extends ParentActivity {
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getApplication());
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new RCAdapater(getDataSet(),getApplication());
+        mAdapter = new FollowAdapater(getDataSet(),getApplication());
         mRecyclerView.setAdapter(mAdapter);
 
         mSearch.setOnClickListener(new View.OnClickListener() {
@@ -78,7 +77,7 @@ public class FindUsersActivity extends ParentActivity {
                     email = dataSnapshot.child(EMAIL_FIELD).getValue().toString();
                 }
                 if(!email.equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
-                    UsersObject obj = new UsersObject(email, uid);
+                    FollowObject obj = new FollowObject(email, uid);
                     results.add(obj);
                     mAdapter.notifyDataSetChanged();
                 }
@@ -113,7 +112,7 @@ public class FindUsersActivity extends ParentActivity {
     }
 
 
-    private ArrayList<UsersObject> getDataSet() {
+    private ArrayList<FollowObject> getDataSet() {
         listenForData();
         return results;
     }

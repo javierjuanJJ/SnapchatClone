@@ -1,10 +1,10 @@
 package whatsappclone.proyecto_javier_juan_uceda.snapchatclone.RecyclerViewFollow;
 
-public class UsersObject {
+public class FollowObject {
    private String email;
    private String uid;
 
-   public UsersObject(String email, String uid){
+   public FollowObject(String email, String uid){
       this.email = email;
       this.uid = uid;
    }

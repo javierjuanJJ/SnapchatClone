@@ -15,23 +15,23 @@ import java.util.List;
 import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.R;
 import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.UserInformation;
 
-public class RCAdapater extends RecyclerView.Adapter<RCViewHolders> {
-    private List<UsersObject> usersList;
+public class FollowAdapater extends RecyclerView.Adapter<FollowViewHolders> {
+    private List<FollowObject> usersList;
     private Context context;
 
-    public RCAdapater (List<UsersObject> usersList, Context context){
+    public FollowAdapater(List<FollowObject> usersList, Context context){
         this.usersList = usersList;
         this.context = context;
     }
     @Override
-    public RCViewHolders onCreateViewHolder(ViewGroup parent, int viewType) {
+    public FollowViewHolders onCreateViewHolder(ViewGroup parent, int viewType) {
         View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.recylerview_followers_item, null);
-        RCViewHolders rcv = new RCViewHolders(layoutView);
+        FollowViewHolders rcv = new FollowViewHolders(layoutView);
         return rcv;
     }
 
     @Override
-    public void onBindViewHolder(final RCViewHolders holder, int position) {
+    public void onBindViewHolder(final FollowViewHolders holder, int position) {
         holder.mEmail.setText(usersList.get(position).getEmail());
 
         if(UserInformation.listFollowing.contains(usersList.get(holder.getLayoutPosition()).getUid())){
