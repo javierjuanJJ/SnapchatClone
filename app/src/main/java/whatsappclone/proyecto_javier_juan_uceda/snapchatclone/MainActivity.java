@@ -19,6 +19,10 @@ public class MainActivity extends ParentActivity {
     }
 
     private void setUI() {
+
+        UserInformation userInformationListener = new UserInformation();
+        userInformationListener.startFetching();
+
         viewPager = findViewById(R.id.viewPager);
         adapterViewPager = new MyPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapterViewPager);
