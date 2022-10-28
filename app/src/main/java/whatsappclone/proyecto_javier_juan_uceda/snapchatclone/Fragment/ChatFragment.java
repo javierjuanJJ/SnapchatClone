@@ -20,6 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.Constants.FieldsFirebase;
 import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.R;
 import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.RecyclerViewStory.StoryAdapter;
 import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.RecyclerViewStory.StoryObject;
@@ -84,7 +85,7 @@ public class ChatFragment extends Fragment {
     }
 
     private void listenForData(){
-        DatabaseReference receivedDb = FirebaseDatabase.getInstance().getReference().child("users").child(uid).child("received");
+        DatabaseReference receivedDb = FirebaseDatabase.getInstance().getReference().child(FieldsFirebase.USERS_FIELD_FIREBASE).child(uid).child(FieldsFirebase.RECEIVED_FIELD_FIREBASE);
         receivedDb.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -103,12 +104,12 @@ public class ChatFragment extends Fragment {
     }
 
     private void getUserInfo(String chatUid) {
-        DatabaseReference chatUserDb = FirebaseDatabase.getInstance().getReference().child("users").child(chatUid);
+        DatabaseReference chatUserDb = FirebaseDatabase.getInstance().getReference().child(FieldsFirebase.USERS_FIELD_FIREBASE).child(chatUid);
         chatUserDb.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-                    String email = dataSnapshot.child("email").getValue().toString();
+                    String email = dataSnapshot.child(FieldsFirebase.EMAIL_FIELD_FIREBASE).getValue().toString();
                     String uid = dataSnapshot.getRef().getKey();
 
                     StoryObject obj = new StoryObject(email, uid, "chat");

@@ -15,6 +15,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.Constants.FieldsFirebase;
+
 public class DisplayImageActivity extends ParentActivity {
 
 
@@ -47,22 +49,22 @@ public class DisplayImageActivity extends ParentActivity {
             case "chat":
                 listenForChat();
                 break;
-            case "story":
+            case FieldsFirebase.STORY_FIELD_FIREBASE:
                 listenForStory();
                 break;
         }
     }
 
     private void listenForChat() {
-        final DatabaseReference chatDb = FirebaseDatabase.getInstance().getReference().child("users").child(currentUid).child("received").child(userId);
+        final DatabaseReference chatDb = FirebaseDatabase.getInstance().getReference().child(FieldsFirebase.USERS_FIELD_FIREBASE).child(currentUid).child(FieldsFirebase.RECEIVED_FIELD_FIREBASE).child(userId);
         chatDb.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String imageUrl = "";
                 for(DataSnapshot chatSnapshot : dataSnapshot.getChildren()){
 
-                    if(chatSnapshot.child("imageUrl").getValue() != null){
-                        imageUrl = chatSnapshot.child("imageUrl").getValue().toString();
+                    if(chatSnapshot.child(FieldsFirebase.IMAGE_URL_FIELD_FIREBASE).getValue() != null){
+                        imageUrl = chatSnapshot.child(FieldsFirebase.IMAGE_URL_FIELD_FIREBASE).getValue().toString();
                     }
                     imageUrlList.add(imageUrl);
                     if (!started){
@@ -80,22 +82,22 @@ public class DisplayImageActivity extends ParentActivity {
     }
 
     private void listenForStory() {
-        DatabaseReference followingStoryDb = FirebaseDatabase.getInstance().getReference().child("users").child(userId);
+        DatabaseReference followingStoryDb = FirebaseDatabase.getInstance().getReference().child(FieldsFirebase.USERS_FIELD_FIREBASE).child(userId);
         followingStoryDb.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String imageUrl = "";
                 long timestampBeg = 0;
                 long timestampEnd = 0;
-                for(DataSnapshot storySnapshot : dataSnapshot.child("story").getChildren()){
-                    if(storySnapshot.child("timestampBeg").getValue() != null){
-                        timestampBeg = Long.parseLong(storySnapshot.child("timestampBeg").getValue().toString());
+                for(DataSnapshot storySnapshot : dataSnapshot.child(FieldsFirebase.STORY_FIELD_FIREBASE).getChildren()){
+                    if(storySnapshot.child(FieldsFirebase.TIMESTAMP_BEG_FIELD_FIREBASE).getValue() != null){
+                        timestampBeg = Long.parseLong(storySnapshot.child(FieldsFirebase.TIMESTAMP_BEG_FIELD_FIREBASE).getValue().toString());
                     }
-                    if(storySnapshot.child("timestampEnd").getValue() != null){
-                        timestampEnd = Long.parseLong(storySnapshot.child("timestampEnd").getValue().toString());
+                    if(storySnapshot.child(FieldsFirebase.TIMESTAMP_END_FIELD_FIREBASE).getValue() != null){
+                        timestampEnd = Long.parseLong(storySnapshot.child(FieldsFirebase.TIMESTAMP_END_FIELD_FIREBASE).getValue().toString());
                     }
-                    if(storySnapshot.child("imageUrl").getValue() != null){
-                        imageUrl = storySnapshot.child("imageUrl").getValue().toString();
+                    if(storySnapshot.child(FieldsFirebase.IMAGE_URL_FIELD_FIREBASE).getValue() != null){
+                        imageUrl = storySnapshot.child(FieldsFirebase.IMAGE_URL_FIELD_FIREBASE).getValue().toString();
                     }
                     long timestampCurrent = System.currentTimeMillis();
                     if(timestampCurrent >= timestampBeg && timestampCurrent <= timestampEnd){

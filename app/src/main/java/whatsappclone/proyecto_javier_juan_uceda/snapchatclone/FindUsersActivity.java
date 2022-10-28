@@ -18,6 +18,7 @@ import com.google.firebase.database.Query;
 
 import java.util.ArrayList;
 
+import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.Constants.FieldsFirebase;
 import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.RecyclerViewFollow.FollowAdapater;
 import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.RecyclerViewFollow.FollowObject;
 
@@ -65,7 +66,7 @@ public class FindUsersActivity extends ParentActivity {
     }
 
     private void listenForData() {
-        DatabaseReference usersDb = FirebaseDatabase.getInstance().getReference().child("users");
+        DatabaseReference usersDb = FirebaseDatabase.getInstance().getReference().child(FieldsFirebase.USERS_FIELD_FIREBASE);
         String emailText = mInput.getText().toString();
         Query query = usersDb.orderByChild(EMAIL_FIELD).startAt(emailText).endAt(emailText + "\uf8ff");
         query.addChildEventListener(new ChildEventListener() {

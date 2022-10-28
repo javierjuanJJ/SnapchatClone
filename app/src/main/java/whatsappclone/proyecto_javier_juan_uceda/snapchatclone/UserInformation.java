@@ -9,6 +9,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
+import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.Constants.FieldsFirebase;
+
 public class UserInformation {
    public static ArrayList<String> listFollowing = new ArrayList<>();
 
@@ -18,7 +20,7 @@ public class UserInformation {
    }
 
    private void getUserFollowing() {
-      DatabaseReference userFollowingDB = FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getUid()).child("following");
+      DatabaseReference userFollowingDB = FirebaseDatabase.getInstance().getReference().child(FieldsFirebase.USERS_FIELD_FIREBASE).child(FirebaseAuth.getInstance().getUid()).child(FieldsFirebase.FOLLOWING_FIELD_FIREBASE);
       userFollowingDB.addChildEventListener(new ChildEventListener() {
          @Override
          public void onChildAdded(DataSnapshot dataSnapshot, String s) {

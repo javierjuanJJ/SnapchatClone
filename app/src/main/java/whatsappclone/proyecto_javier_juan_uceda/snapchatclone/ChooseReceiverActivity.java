@@ -33,6 +33,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+
+import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.Constants.FieldsFirebase;
 import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.RecyclerViewReceiver.ReceiverAdapater;
 import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.RecyclerViewReceiver.ReceiverObject;
 
@@ -92,14 +94,14 @@ public class ChooseReceiverActivity extends ParentActivity {
 
     private void listenForData() {
         for(int i = 0; i < UserInformation.listFollowing.size();i++){
-            DatabaseReference usersDb = FirebaseDatabase.getInstance().getReference().child("users").child(UserInformation.listFollowing.get(i));
+            DatabaseReference usersDb = FirebaseDatabase.getInstance().getReference().child(FieldsFirebase.USERS_FIELD_FIREBASE).child(UserInformation.listFollowing.get(i));
             usersDb.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     String email = "";
                     String uid = dataSnapshot.getRef().getKey();
-                    if(dataSnapshot.child("email").getValue() != null){
-                        email = dataSnapshot.child("email").getValue().toString();
+                    if(dataSnapshot.child(FieldsFirebase.EMAIL_FIELD_FIREBASE).getValue() != null){
+                        email = dataSnapshot.child(FieldsFirebase.EMAIL_FIELD_FIREBASE).getValue().toString();
                     }
                     ReceiverObject obj = new ReceiverObject(email, uid, false);
                     if(!results.contains(obj)){
@@ -118,10 +120,10 @@ public class ChooseReceiverActivity extends ParentActivity {
 
 
     private void saveToStories() {
-        final DatabaseReference userStoryDb = FirebaseDatabase.getInstance().getReference().child("users").child(Uid).child("story");
+        final DatabaseReference userStoryDb = FirebaseDatabase.getInstance().getReference().child(FieldsFirebase.USERS_FIELD_FIREBASE).child(Uid).child(FieldsFirebase.STORY_FIELD_FIREBASE);
         final String key = userStoryDb.push().getKey();
 
-        StorageReference filePath = FirebaseStorage.getInstance().getReference().child("captures").child(key);
+        StorageReference filePath = FirebaseStorage.getInstance().getReference().child(FieldsFirebase.CAPTURES_FIELD_FIREBASE).child(key);
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
@@ -145,18 +147,18 @@ public class ChooseReceiverActivity extends ParentActivity {
                 mStory = findViewById(R.id.receive);
                 if(mStory.isChecked()){
                     Map<String, Object> mapToUpload = new HashMap<>();
-                    mapToUpload.put("imageUrl", imageUrl.toString());
-                    mapToUpload.put("timestampBeg", currentTimestamp);
-                    mapToUpload.put("timestampEnd", endTimestamp);
+                    mapToUpload.put(FieldsFirebase.IMAGE_URL_FIELD_FIREBASE, imageUrl.toString());
+                    mapToUpload.put(FieldsFirebase.TIMESTAMP_BEG_FIELD_FIREBASE, currentTimestamp);
+                    mapToUpload.put(FieldsFirebase.TIMESTAMP_END_FIELD_FIREBASE, endTimestamp);
                     userStoryDb.child(key).setValue(mapToUpload);
                 }
                 for(int i = 0; i< results.size(); i++){
                     if(results.get(i).getReceive()){
-                        DatabaseReference userDb = FirebaseDatabase.getInstance().getReference().child("users").child(results.get(i).getUid()).child("received").child(Uid);
+                        DatabaseReference userDb = FirebaseDatabase.getInstance().getReference().child(FieldsFirebase.USERS_FIELD_FIREBASE).child(results.get(i).getUid()).child(FieldsFirebase.RECEIVED_FIELD_FIREBASE).child(Uid);
                         Map<String, Object> mapToUpload = new HashMap<>();
-                        mapToUpload.put("imageUrl", imageUrl.toString());
-                        mapToUpload.put("timestampBeg", currentTimestamp);
-                        mapToUpload.put("timestampEnd", endTimestamp);
+                        mapToUpload.put(FieldsFirebase.IMAGE_URL_FIELD_FIREBASE, imageUrl.toString());
+                        mapToUpload.put(FieldsFirebase.TIMESTAMP_BEG_FIELD_FIREBASE, currentTimestamp);
+                        mapToUpload.put(FieldsFirebase.TIMESTAMP_END_FIELD_FIREBASE, endTimestamp);
                         userDb.child(key).setValue(mapToUpload);
                     }
                 }

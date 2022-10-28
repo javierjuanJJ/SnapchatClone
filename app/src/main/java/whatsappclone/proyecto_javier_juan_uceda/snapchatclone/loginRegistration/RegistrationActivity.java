@@ -19,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.HashMap;
 import java.util.Map;
 
+import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.Constants.FieldsFirebase;
 import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.MainActivity;
 import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.ParentActivity;
 import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.R;
@@ -71,12 +72,12 @@ public class RegistrationActivity extends ParentActivity {
                             makeToast("Sign in ERROR");
                         }else{
                             String userId = mAuth.getCurrentUser().getUid();
-                            DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("users").child(userId);
+                            DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child(FieldsFirebase.USERS_FIELD_FIREBASE).child(userId);
 
                             Map userInfo = new HashMap<>();
-                            userInfo.put("email", email);
-                            userInfo.put("name", name);
-                            userInfo.put("profileImageUrl", "default");
+                            userInfo.put(FieldsFirebase.EMAIL_FIELD_FIREBASE, email);
+                            userInfo.put(FieldsFirebase.NAME_FIELD_FIREBASE, name);
+                            userInfo.put(FieldsFirebase.PROFILE_IMAGE_URL_FIELD_FIREBASE, "default");
 
                             currentUserDb.updateChildren(userInfo);
                         }

@@ -19,6 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.Constants.FieldsFirebase;
 import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.R;
 import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.RecyclerViewStory.StoryAdapter;
 import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.RecyclerViewStory.StoryObject;
@@ -84,20 +85,20 @@ public class StoryFragment extends Fragment {
 
     private void listenForData() {
         for(int i = 0; i < UserInformation.listFollowing.size(); i++){
-            DatabaseReference followingStoryDb = FirebaseDatabase.getInstance().getReference().child("users").child(UserInformation.listFollowing.get(i));
+            DatabaseReference followingStoryDb = FirebaseDatabase.getInstance().getReference().child(FieldsFirebase.USERS_FIELD_FIREBASE).child(UserInformation.listFollowing.get(i));
             followingStoryDb.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    String email = dataSnapshot.child("email").getValue().toString();
+                    String email = dataSnapshot.child(FieldsFirebase.EMAIL_FIELD_FIREBASE).getValue().toString();
                     String uid = dataSnapshot.getRef().getKey();
                     long timestampBeg = 0;
                     long timestampEnd = 0;
-                    for(DataSnapshot storySnapshot : dataSnapshot.child("story").getChildren()){
-                        if(storySnapshot.child("timestampBeg").getValue() != null){
-                            timestampBeg = Long.parseLong(storySnapshot.child("timestampBeg").getValue().toString());
+                    for(DataSnapshot storySnapshot : dataSnapshot.child(FieldsFirebase.STORY_FIELD_FIREBASE).getChildren()){
+                        if(storySnapshot.child(FieldsFirebase.TIMESTAMP_BEG_FIELD_FIREBASE).getValue() != null){
+                            timestampBeg = Long.parseLong(storySnapshot.child(FieldsFirebase.TIMESTAMP_BEG_FIELD_FIREBASE).getValue().toString());
                         }
-                        if(storySnapshot.child("timestampEnd").getValue() != null){
-                            timestampEnd = Long.parseLong(storySnapshot.child("timestampEnd").getValue().toString());
+                        if(storySnapshot.child(FieldsFirebase.TIMESTAMP_END_FIELD_FIREBASE).getValue() != null){
+                            timestampEnd = Long.parseLong(storySnapshot.child(FieldsFirebase.TIMESTAMP_END_FIELD_FIREBASE).getValue().toString());
                         }
                         long timestampCurrent = System.currentTimeMillis();
                         if(timestampCurrent >= timestampBeg && timestampCurrent <= timestampEnd){

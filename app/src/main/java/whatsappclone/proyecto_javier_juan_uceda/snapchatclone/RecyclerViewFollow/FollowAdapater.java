@@ -12,6 +12,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
+import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.Constants.FieldsFirebase;
 import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.R;
 import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.UserInformation;
 
@@ -46,10 +47,10 @@ public class FollowAdapater extends RecyclerView.Adapter<FollowViewHolders> {
                 String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
                 if(!UserInformation.listFollowing.contains(usersList.get(holder.getLayoutPosition()).getUid())){
                     holder.mFollow.setText("following");
-                    FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("following").child(usersList.get(holder.getLayoutPosition()).getUid()).setValue(true);
+                    FirebaseDatabase.getInstance().getReference().child(FieldsFirebase.USERS_FIELD_FIREBASE).child(userId).child(FieldsFirebase.FOLLOWING_FIELD_FIREBASE).child(usersList.get(holder.getLayoutPosition()).getUid()).setValue(true);
                 }else{
                     holder.mFollow.setText("follow");
-                    FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("following").child(usersList.get(holder.getLayoutPosition()).getUid()).removeValue();
+                    FirebaseDatabase.getInstance().getReference().child(FieldsFirebase.USERS_FIELD_FIREBASE).child(userId).child(FieldsFirebase.FOLLOWING_FIELD_FIREBASE).child(usersList.get(holder.getLayoutPosition()).getUid()).removeValue();
                 }
             }
         });
