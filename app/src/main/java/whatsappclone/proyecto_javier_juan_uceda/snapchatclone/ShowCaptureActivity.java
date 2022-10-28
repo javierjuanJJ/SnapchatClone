@@ -1,8 +1,5 @@
 package whatsappclone.proyecto_javier_juan_uceda.snapchatclone;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -13,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -25,13 +24,14 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ShowCaptureActivity extends ParentActivity {
 
-    private ImageView image;
-    private Bitmap rotateBitmap;
+    private ImageView mImage;
+    private Bitmap bitmap;
     private String Uid;
     private Button mStory;
 
@@ -43,16 +43,25 @@ public class ShowCaptureActivity extends ParentActivity {
     }
 
     private void setUI() {
-        image = findViewById(R.id.imageCaptured);
-        mStory = findViewById(R.id.story);
-        mStory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                saveToStories();
-            }
-        });
-        firebaseLoad();
-        loadimage();
+        try {
+            mImage = findViewById(R.id.imageCaptured);
+            mStory = findViewById(R.id.story);
+            mStory.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    saveToStories();
+                }
+            });
+            firebaseLoad();
+
+            loadimage();
+
+            mImage.setImageBitmap(bitmap);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            finish();
+        }
     }
 
     private void saveToStories() {
@@ -62,7 +71,7 @@ public class ShowCaptureActivity extends ParentActivity {
         StorageReference filePath = FirebaseStorage.getInstance().getReference().child("captures").child(key);
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        rotateBitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
         byte[] dataToUpload = baos.toByteArray();
         UploadTask uploadTask = filePath.putBytes(dataToUpload);
 
@@ -70,12 +79,12 @@ public class ShowCaptureActivity extends ParentActivity {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Task<Uri> urlTask = taskSnapshot.getStorage().getDownloadUrl();
-                while (!urlTask.isSuccessful());
+                while (!urlTask.isSuccessful()) ;
 
                 Uri imageUrl = urlTask.getResult();
 
                 Long currentTimestamp = System.currentTimeMillis();
-                Long endTimestamp = currentTimestamp + (24*60*60*1000);
+                Long endTimestamp = currentTimestamp + (24 * 60 * 60 * 1000);
 
                 Map<String, Object> mapToUpload = new HashMap<>();
                 mapToUpload.put("imageUrl", imageUrl.toString());
@@ -84,7 +93,7 @@ public class ShowCaptureActivity extends ParentActivity {
 
                 userStoryDb.child(key).setValue(mapToUpload);
 
-                Log.i("upload " + this.getClass().getSimpleName(),"Upload correct");
+                Log.i("upload " + this.getClass().getSimpleName(), "Upload correct");
                 Toast.makeText(ShowCaptureActivity.this, "Upload correct", Toast.LENGTH_SHORT).show();
 
                 finish();
@@ -93,11 +102,10 @@ public class ShowCaptureActivity extends ParentActivity {
         });
 
 
-
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.i("upload " + this.getClass().getSimpleName(),"Upload error");
+                Log.i("upload " + this.getClass().getSimpleName(), "Upload error");
                 Toast.makeText(ShowCaptureActivity.this, "Upload error", Toast.LENGTH_SHORT).show();
 
                 finish();
@@ -110,35 +118,8 @@ public class ShowCaptureActivity extends ParentActivity {
         Uid = FirebaseAuth.getInstance().getUid();
     }
 
-    private void loadimage() {
-        Bundle extras = getIntent().getExtras();
-
-        if (extras != null) {
-            byte[] b = extras.getByteArray("capture");
-
-            if(b != null){
-                image = findViewById(R.id.imageCaptured);
-
-                Bitmap decodedBitmap = BitmapFactory.decodeByteArray(b, 0, b.length);
-
-                rotateBitmap = rotate(decodedBitmap);
-
-
-                image.setImageBitmap(rotateBitmap);
-            }
-
-        }
-
-    }
-
-    private Bitmap rotate(Bitmap decodedBitmap) {
-        int w = decodedBitmap.getWidth();
-        int h = decodedBitmap.getHeight();
-
-        Matrix matrix = new Matrix();
-        matrix.setRotate(90);
-
-        return Bitmap.createBitmap(decodedBitmap, 0, 0, w, h, matrix, true);
+    private void loadimage() throws FileNotFoundException {
+        bitmap = BitmapFactory.decodeStream(getApplication().openFileInput("imageToSend"));
 
     }
 }
