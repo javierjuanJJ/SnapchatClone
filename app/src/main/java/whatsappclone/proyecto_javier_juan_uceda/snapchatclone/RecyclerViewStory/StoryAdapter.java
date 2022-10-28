@@ -30,6 +30,7 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryViewHolders> {
     public void onBindViewHolder(final StoryViewHolders holder, int position) {
         holder.mEmail.setText(usersList.get(position).getEmail());
         holder.mEmail.setTag(usersList.get(position).getUid());
+        holder.mLayout.setTag(usersList.get(position).getCharOrStory());
     }
 
     @Override
