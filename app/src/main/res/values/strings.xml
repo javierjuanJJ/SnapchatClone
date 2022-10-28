@@ -2,4 +2,22 @@
     <string name="app_name">SnapchatClone</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="btnLogin">Login</string>
+    <string name="btnRegister">Registration</string>
+    <string name="tvEmail">Save to Story</string>
+    <string name="tvFindUsers">find users</string>
+    <string name="tvSearch">search</string>
+    <string name="etEmailLogin">Email</string>
+    <string name="etPassword">Password</string>
+    <string name="btnLoginScreen">login</string>
+    <string name="btnRegistration">registration</string>
+    <string name="btnSendImage">Send Image</string>
+    <string name="btnLogOut">Logout</string>
+    <string name="btnFindUsers">Find Users</string>
+    <string name="btnRefresh">refresh</string>
+    <string name="btnRefreshStory">refresh</string>
+    <string name="btnFollow">follow</string>
+    <string name="etFollowing">following</string>
+    <string name="etFollow">follow</string>
+    <string name="btnCapture">capture</string>
 </resources>

@@ -36,9 +36,9 @@ public class FollowAdapater extends RecyclerView.Adapter<FollowViewHolders> {
         holder.mEmail.setText(usersList.get(position).getEmail());
 
         if(UserInformation.listFollowing.contains(usersList.get(holder.getLayoutPosition()).getUid())){
-            holder.mFollow.setText("following");
+            holder.mFollow.setText(R.string.etFollowing);
         }else{
-            holder.mFollow.setText("follow");
+            holder.mFollow.setText(R.string.etFollow);
         }
 
         holder.mFollow.setOnClickListener(new View.OnClickListener() {
@@ -46,10 +46,10 @@ public class FollowAdapater extends RecyclerView.Adapter<FollowViewHolders> {
             public void onClick(View view) {
                 String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
                 if(!UserInformation.listFollowing.contains(usersList.get(holder.getLayoutPosition()).getUid())){
-                    holder.mFollow.setText("following");
+                    holder.mFollow.setText(R.string.etFollowing);
                     FirebaseDatabase.getInstance().getReference().child(FieldsFirebase.USERS_FIELD_FIREBASE).child(userId).child(FieldsFirebase.FOLLOWING_FIELD_FIREBASE).child(usersList.get(holder.getLayoutPosition()).getUid()).setValue(true);
                 }else{
-                    holder.mFollow.setText("follow");
+                    holder.mFollow.setText(R.string.etFollow);
                     FirebaseDatabase.getInstance().getReference().child(FieldsFirebase.USERS_FIELD_FIREBASE).child(userId).child(FieldsFirebase.FOLLOWING_FIELD_FIREBASE).child(usersList.get(holder.getLayoutPosition()).getUid()).removeValue();
                 }
             }

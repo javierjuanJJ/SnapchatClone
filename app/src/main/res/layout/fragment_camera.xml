@@ -16,13 +16,13 @@
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Logout"
+            android:text="@string/btnLogOut"
             android:id="@+id/logout"/>
         <Button
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Find Users"
+            android:text="@string/btnFindUsers"
             android:id="@+id/findUsers"/>
     </LinearLayout>
 
@@ -31,7 +31,7 @@
         android:layout_gravity="bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="capture"
+        android:text="@string/btnCapture"
         android:id="@+id/capture"/>
 
 </FrameLayout>

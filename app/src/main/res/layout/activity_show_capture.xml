@@ -14,7 +14,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Send Image"
+        android:text="@string/btnSendImage"
         android:layout_gravity="bottom"
         android:id="@+id/send"
         />

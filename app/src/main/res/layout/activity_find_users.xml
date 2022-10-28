@@ -17,13 +17,13 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@android:color/white"
-            android:hint="find users"
+            android:hint="@string/tvFindUsers"
             android:paddingLeft="10sp"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/search"
-            android:text="search"/>
+            android:text="@string/tvSearch"/>
     </LinearLayout>
 
     <View

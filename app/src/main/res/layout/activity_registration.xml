@@ -16,15 +16,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/email"
-        android:hint="Email"/>
+        android:hint="@string/etEmailLogin"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/password"
-        android:hint="Password"/>
+        android:hint="@string/etPassword"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="registration"
+        android:text="@string/btnRegistration"
         android:id="@+id/registration"/>
 </LinearLayout>

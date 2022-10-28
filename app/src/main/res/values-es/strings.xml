@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SnapchatClone</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="btnLogin">Login</string>
+    <string name="btnRegister">Registro</string>
+    <string name="tvEmail">Guardar story</string>
+    <string name="tvFindUsers">Buscar usuarios</string>
+    <string name="tvSearch">Buscar</string>
+    <string name="etEmailLogin">Email</string>
+    <string name="etPassword">Password</string>
+    <string name="btnLoginScreen">Login</string>
+    <string name="btnRegistration">Registro</string>
+    <string name="btnSendImage">Enviar imágen</string>
+    <string name="btnLogOut">Cerrar sesión</string>
+    <string name="btnFindUsers">Buscar usuarios</string>
+    <string name="btnRefresh">Actualizar</string>
+    <string name="btnRefreshStory">Actualizar</string>
+    <string name="btnFollow">Seguir</string>
+    <string name="etFollowing">Dejar de seguir</string>
+    <string name="etFollow">Seguir</string>
+    <string name="btnCapture">Capturar</string>
+</resources>

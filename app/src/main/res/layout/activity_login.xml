@@ -10,15 +10,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/email"
-        android:hint="Email"/>
+        android:inputType="textEmailAddress"
+        android:hint="@string/etEmailLogin"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/password"
-        android:hint="Password"/>
+        android:inputType="textPassword"
+        android:hint="@string/etPassword"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="login"
+        android:text="@string/btnLoginScreen"
         android:id="@+id/login"/>
 </LinearLayout>
