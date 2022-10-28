@@ -29,6 +29,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
+import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.Constants.OpenFileInput;
 import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.FindUsersActivity;
 import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.R;
 import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.ShowCaptureActivity;
@@ -185,7 +186,7 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback, 
     }
 
     public String SaveImageToStorage(Bitmap bitmap){
-        String fileName = "imageToSend";
+        String fileName = OpenFileInput.IMAGE_TO_SEND;
         try{
             ByteArrayOutputStream bytes = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);

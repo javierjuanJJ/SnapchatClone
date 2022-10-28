@@ -11,6 +11,8 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.FileNotFoundException;
 
+import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.Constants.OpenFileInput;
+
 public class ShowCaptureActivity extends ParentActivity {
 
     private ImageView mImage;
@@ -52,7 +54,7 @@ public class ShowCaptureActivity extends ParentActivity {
     }
 
     private void loadimage() throws FileNotFoundException {
-        bitmap = BitmapFactory.decodeStream(getApplication().openFileInput("imageToSend"));
+        bitmap = BitmapFactory.decodeStream(getApplication().openFileInput(OpenFileInput.IMAGE_TO_SEND));
 
     }
 }

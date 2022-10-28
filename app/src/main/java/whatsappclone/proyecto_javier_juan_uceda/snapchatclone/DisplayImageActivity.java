@@ -15,7 +15,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.Constants.BundleConstants;
 import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.Constants.FieldsFirebase;
+import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.Constants.TypeChat;
 
 public class DisplayImageActivity extends ParentActivity {
 
@@ -41,15 +43,15 @@ public class DisplayImageActivity extends ParentActivity {
         currentUid = FirebaseAuth.getInstance().getUid();
 
         Bundle b = getIntent().getExtras();
-        userId = b.getString("userId");
+        userId = b.getString(BundleConstants.USER_ID);
 
         mImage = findViewById(R.id.image);
-        chatOrStory = b.getString("chatOrStory");
+        chatOrStory = b.getString(TypeChat.CHAT_OR_STORY);
         switch(chatOrStory){
-            case "chat":
+            case TypeChat.CHAT:
                 listenForChat();
                 break;
-            case FieldsFirebase.STORY_FIELD_FIREBASE:
+            case TypeChat.STORY:
                 listenForStory();
                 break;
         }

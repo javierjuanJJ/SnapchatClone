@@ -21,6 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.Constants.FieldsFirebase;
+import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.Constants.TypeChat;
 import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.R;
 import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.RecyclerViewStory.StoryAdapter;
 import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.RecyclerViewStory.StoryObject;
@@ -112,7 +113,7 @@ public class ChatFragment extends Fragment {
                     String email = dataSnapshot.child(FieldsFirebase.EMAIL_FIELD_FIREBASE).getValue().toString();
                     String uid = dataSnapshot.getRef().getKey();
 
-                    StoryObject obj = new StoryObject(email, uid, "chat");
+                    StoryObject obj = new StoryObject(email, uid, TypeChat.CHAT);
                     if(!results.contains(obj)){
                         results.add(obj);
                         mAdapter.notifyDataSetChanged();

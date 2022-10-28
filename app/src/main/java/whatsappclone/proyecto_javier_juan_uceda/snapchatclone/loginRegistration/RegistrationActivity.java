@@ -77,7 +77,7 @@ public class RegistrationActivity extends ParentActivity {
                             Map userInfo = new HashMap<>();
                             userInfo.put(FieldsFirebase.EMAIL_FIELD_FIREBASE, email);
                             userInfo.put(FieldsFirebase.NAME_FIELD_FIREBASE, name);
-                            userInfo.put(FieldsFirebase.PROFILE_IMAGE_URL_FIELD_FIREBASE, "default");
+                            userInfo.put(FieldsFirebase.PROFILE_IMAGE_URL_FIELD_FIREBASE, FieldsFirebase.DEFAULT_IMAGE_TEXT);
 
                             currentUserDb.updateChildren(userInfo);
                         }

@@ -20,6 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.Constants.FieldsFirebase;
+import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.Constants.TypeChat;
 import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.R;
 import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.RecyclerViewStory.StoryAdapter;
 import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.RecyclerViewStory.StoryObject;
@@ -102,7 +103,7 @@ public class StoryFragment extends Fragment {
                         }
                         long timestampCurrent = System.currentTimeMillis();
                         if(timestampCurrent >= timestampBeg && timestampCurrent <= timestampEnd){
-                            StoryObject obj = new StoryObject(email, uid, "story");
+                            StoryObject obj = new StoryObject(email, uid, TypeChat.STORY);
                             if(!results.contains(obj)){
                                 results.add(obj);
                                 mAdapter.notifyDataSetChanged();

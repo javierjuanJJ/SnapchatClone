@@ -13,4 +13,5 @@ public class FieldsFirebase {
    public static final String CAPTURES_FIELD_FIREBASE = "captures";
    public static final String NAME_FIELD_FIREBASE = "name";
    public static final String PROFILE_IMAGE_URL_FIELD_FIREBASE = "profileImageUrl";
+   public static final String DEFAULT_IMAGE_TEXT = "default";
 }

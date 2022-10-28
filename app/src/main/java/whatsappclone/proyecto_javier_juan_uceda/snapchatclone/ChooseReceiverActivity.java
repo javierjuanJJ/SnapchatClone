@@ -35,6 +35,7 @@ import java.util.Map;
 
 
 import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.Constants.FieldsFirebase;
+import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.Constants.OpenFileInput;
 import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.RecyclerViewReceiver.ReceiverAdapater;
 import whatsappclone.proyecto_javier_juan_uceda.snapchatclone.RecyclerViewReceiver.ReceiverObject;
 
@@ -58,7 +59,7 @@ public class ChooseReceiverActivity extends ParentActivity {
 
     private void setUI() {
         try {
-            bitmap = BitmapFactory.decodeStream(getApplication().openFileInput("imageToSend"));
+            bitmap = BitmapFactory.decodeStream(getApplication().openFileInput(OpenFileInput.IMAGE_TO_SEND));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             finish();
